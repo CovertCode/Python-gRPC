@@ -20,6 +20,7 @@ import logging
 import grpc
 import helloworld_pb2
 import helloworld_pb2_grpc
+import json
 
 
 def run():
@@ -33,10 +34,21 @@ def run():
 
     channel = grpc.insecure_channel('localhost:50051')
     stub = helloworld_pb2_grpc.GreeterStub(channel)
-    response = stub.SayHello(helloworld_pb2.HelloRequest(name='you'))
-    print("Greeter client received: " + response.message)
-    responseAgain = stub.SayHelloAgain(helloworld_pb2.HelloRequest(name='you'))
-    print("Greeter client received: " + responseAgain.message)
+
+    response = stub.SayHello(helloworld_pb2.HelloRequest(username='pv8172'))
+    # print("Greeter client received: " + response.message)
+
+    # responseAgain = stub.SayHelloAgain(
+    #     helloworld_pb2.HelloRequest(username='you'))
+    # print("Greeter client received: " + responseAgain.message)
+
+    # This will return list of dict
+    AllPostList = stub.GetPostList(helloworld_pb2.GetPosts(wantAllPosts=True))
+    # print(AllPostList)
+
+    for dic in AllPostList.postList:
+        print(dic.title)
+
 
 if __name__ == '__main__':
     logging.basicConfig()
