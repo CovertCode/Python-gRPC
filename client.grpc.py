@@ -46,8 +46,8 @@ def run():
     AllPostList = stub.GetPostList(helloworld_pb2.GetPosts(wantAllPosts=True))
     # print(AllPostList)
 
-    for dic in AllPostList.postList:
-        print(dic.title)
+    for dict in AllPostList.postList:
+        print(dict.title)
 
 
 if __name__ == '__main__':
